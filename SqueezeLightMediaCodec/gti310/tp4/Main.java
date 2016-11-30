@@ -1,5 +1,7 @@
 package gti310.tp4;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
 /**
@@ -68,7 +70,13 @@ public class Main {
 		
 	}
 	public static void encodeSZL(String filename){
-		ppm.readPPMFile(filename);
+		int[][][] image= ppm.readPPMFile(filename);
+		System.out.println(filename);
+		String[] parts = filename.split(".");
+		String end = ".szl";
+		String newfilename=parts[0];
+		System.out.println(newfilename);
+		szl.writeSZLFile(newfilename,image[0].length,image[0][0].length,90);
 	}
 	public static void decodeSZL(){
 		
