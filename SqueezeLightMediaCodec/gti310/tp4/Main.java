@@ -37,6 +37,8 @@ public class Main {
 	public static final int V = 2;
 	
 	public static final Scanner sc= new Scanner(System.in);
+	public static final PPMReaderWriter ppm = new PPMReaderWriter();
+	public static final SZLReaderWriter szl = new SZLReaderWriter();
 	
 	/**
 	 * The application's entry point.
@@ -50,11 +52,13 @@ public class Main {
 				+ "Squeeze Light,\nou D pour décoder l'image Squeeze Light");
 		String reponse = sc.nextLine();
 		if (reponse.toLowerCase().equals("c")){
-			encode();
+			System.out.println("Veuillez nommer le fichier ppm a encoder en format SZL");
+			reponse = sc.nextLine();
+			encodeSZL(reponse);
 			valid=true;
 		}
 		else if (reponse.toLowerCase().equals("d")){
-			decode();
+			decodeSZL();
 			valid=true;
 		}
 		else {
@@ -63,10 +67,10 @@ public class Main {
 		}
 		
 	}
-	public static void encode(){
-		
+	public static void encodeSZL(String filename){
+		ppm.readPPMFile(filename);
 	}
-	public static void decode(){
+	public static void decodeSZL(){
 		
 	}
 }
