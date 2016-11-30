@@ -1,5 +1,7 @@
 package gti310.tp4;
 
+import java.util.Scanner;
+
 /**
  * The Main class is where the different functions are called to either encode
  * a PPM file to the Squeeze-Light format or to decode a Squeeze-Ligth image
@@ -34,12 +36,37 @@ public class Main {
 	public static final int U = 1;
 	public static final int V = 2;
 	
+	public static final Scanner sc= new Scanner(System.in);
+	
 	/**
 	 * The application's entry point.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Squeeze Light Media Codec !");
+		boolean valid=false;
+		while(!valid){
+		System.out.println("Squeeze Light Media Codec !\nEntrez C pour encoder l'image en format "
+				+ "Squeeze Light,\nou D pour décoder l'image Squeeze Light");
+		String reponse = sc.nextLine();
+		if (reponse.toLowerCase().equals("c")){
+			encode();
+			valid=true;
+		}
+		else if (reponse.toLowerCase().equals("d")){
+			decode();
+			valid=true;
+		}
+		else {
+			System.out.println("Vous n'avez pas rentrer une réponse valide, veuillez réessayez.");
+		}
+		}
+		
+	}
+	public static void encode(){
+		
+	}
+	public static void decode(){
+		
 	}
 }
