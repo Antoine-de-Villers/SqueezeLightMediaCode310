@@ -69,14 +69,10 @@ public class Main {
 		}
 		
 	}
-<<<<<<< HEAD
-	public static void encode(){
-		new FileViewer(true);
-	}
-	public static void decode(){
-		new FileViewer(false);
-=======
+
 	public static void encodeSZL(String filename){
+		new FileViewer(true);
+	
 		int[][][] image= ppm.readPPMFile(filename);
 		System.out.println(filename);
 		String[] parts = filename.split(".");
@@ -86,7 +82,7 @@ public class Main {
 		szl.writeSZLFile(newfilename,image[0].length,image[0][0].length,90);
 	}
 	public static void decodeSZL(){
+		new FileViewer(false);
 		
->>>>>>> origin/master
 	}
 }
