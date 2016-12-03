@@ -8,7 +8,7 @@ import java.util.Scanner;
  * into PPM format. It is the implementation of the simplified JPEG block 
  * diagrams.
  * 
- * @author François Caron
+ * @author Franï¿½ois Caron
  */
 public class Main {
 
@@ -47,7 +47,7 @@ public class Main {
 		boolean valid=false;
 		while(!valid){
 		System.out.println("Squeeze Light Media Codec !\nEntrez C pour encoder l'image en format "
-				+ "Squeeze Light,\nou D pour décoder l'image Squeeze Light");
+				+ "Squeeze Light,\nou D pour dï¿½coder l'image Squeeze Light");
 		String reponse = sc.nextLine();
 		if (reponse.toLowerCase().equals("c")){
 			encode();
@@ -58,15 +58,15 @@ public class Main {
 			valid=true;
 		}
 		else {
-			System.out.println("Vous n'avez pas rentrer une réponse valide, veuillez réessayez.");
+			System.out.println("Vous n'avez pas rentrer une rï¿½ponse valide, veuillez rï¿½essayez.");
 		}
 		}
 		
 	}
 	public static void encode(){
-		
+		new FileViewer(true);
 	}
 	public static void decode(){
-		
+		new FileViewer(false);
 	}
 }

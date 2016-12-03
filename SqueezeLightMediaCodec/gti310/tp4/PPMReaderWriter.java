@@ -15,7 +15,7 @@ import java.io.IOException;
  * of the colors in the RGB color space. The dimensions are all the same size.
  * The same must be true for writting pixel values to a file.
  *  
- * @author François Caron
+ * @author Franï¿½ois Caron
  */
 public class PPMReaderWriter {
 	/* 
@@ -32,7 +32,7 @@ public class PPMReaderWriter {
 	/*
 	 * comment string to add to files written with this application
 	 */
-	private static final String COMMENTS = "# ÉTS GTI310 codec squeeze light";
+	private static final String COMMENTS = "# ï¿½TS GTI310 codec squeeze light";
 	
 	/*
 	 * maximum value in the file

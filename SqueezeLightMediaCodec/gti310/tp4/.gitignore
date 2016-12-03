@@ -2,3 +2,8 @@
 /Main.class
 /PPMReaderWriter.class
 /SZLReaderWriter.class
+/FileViewer.class
+/FileFilter.class
+/AFileFilter.class
+/SZLFileFilter.class
+/PPMFileFilter.class
