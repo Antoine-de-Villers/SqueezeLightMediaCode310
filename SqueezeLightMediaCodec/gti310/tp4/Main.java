@@ -4,13 +4,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
+
 /**
  * The Main class is where the different functions are called to either encode
  * a PPM file to the Squeeze-Light format or to decode a Squeeze-Ligth image
  * into PPM format. It is the implementation of the simplified JPEG block 
  * diagrams.
  * 
- * @author Fran�ois Caron
+ * @author Francois Caron
+ * @author Antoine de Villers et Francis Cadorette
  */
 public class Main {
 
@@ -51,7 +54,7 @@ public class Main {
 		boolean valid=false;
 		while(!valid){
 		System.out.println("Squeeze Light Media Codec !\nEntrez C pour encoder l'image en format "
-				+ "Squeeze Light,\nou D pour d�coder l'image Squeeze Light");
+				+ "Squeeze Light,\nou D pour decoder l'image Squeeze Light");
 		String reponse = sc.nextLine();
 		if (reponse.toLowerCase().equals("c")){
 			System.out.println("Veuillez nommer le fichier ppm a encoder en format SZL");
@@ -60,18 +63,19 @@ public class Main {
 			valid=true;
 		}
 		else if (reponse.toLowerCase().equals("d")){
+			sc.close();
 			decodeSZL();
 			valid=true;
 		}
 		else {
-			System.out.println("Vous n'avez pas rentrer une r�ponse valide, veuillez r�essayez.");
+			System.out.println("Vous n'avez pas rentrer une reponse valide, veuillez reessayez.");
 		}
 		}
 		
 	}
 
 	public static void encodeSZL(String filename){
-		new FileViewer(true);
+		FileViewer f = new FileViewer(true);
 	
 		int[][][] image= ppm.readPPMFile(filename);
 		System.out.println(filename);
@@ -82,7 +86,7 @@ public class Main {
 		szl.writeSZLFile(newfilename,image[0].length,image[0][0].length,90);
 	}
 	public static void decodeSZL(){
-		new FileViewer(false);
+				FileViewer f = new FileViewer(false);
 		
 	}
 }
