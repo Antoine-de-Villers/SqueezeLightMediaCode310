@@ -43,53 +43,53 @@ public class ZigzagChange {
 					Y.add(tab);
 					Y0 = 0;
 				}
+			}
+			{
+				int[] tab = { 0, 0 };
+				Y.add(tab);
+			}
 
-				{
-					int[] tab = { 0, 0 };
-					Y.add(tab);
-				}
-
-				for (int val1 : AC[Main.Cb]) {
-					if (val1 == 0)
-						Cb0++;
-					else {
-						int[] tab = { Cb0, val1 };
-						Cb.add(tab);
-						Cb0 = 0;
-					}
-				}
-				{
-					int[] tab = { 0, 0 };
-					Cr.add(tab);
-				}
-
-				for (int val2 : AC[Main.Cr]) {
-					if (val2 == 0)
-						Cr0++;
-					else {
-						int[] tab = { Cr0, val2 };
-						Cr.add(tab);
-						Cr0 = 0;
-					}
-				}
-				{
-					int[] tab = { 0, 0 };
-					Cr.add(tab);
+			for (int val : AC[Main.Cb]) {
+				if (val == 0)
+					Cb0++;
+				else {
+					int[] tab = { Cb0, val };
+					Cb.add(tab);
+					Cb0 = 0;
 				}
 			}
+			{
+				int[] tab = { 0, 0 };
+				Cr.add(tab);
+			}
+
+			for (int val : AC[Main.Cr]) {
+				if (val == 0)
+					Cr0++;
+				else {
+					int[] tab = { Cr0, val };
+					Cr.add(tab);
+					Cr0 = 0;
+				}
+			}
+			{
+				int[] tab = { 0, 0 };
+				Cr.add(tab);
+			}
 		}
-			int[][][] ACsToWrite = new int[Main.COLOR_SPACE_SIZE][Y.size()][2];
-			for (int i = 0; i < Y.size(); i++)
-				ACsToWrite[0][i] = Y.get(i);
 
-			for (int i = 0; i < Cb.size(); i++)
-				ACsToWrite[1][i] = Cb.get(i);
+		int[][][] ACsToWrite = new int[Main.COLOR_SPACE_SIZE][Y.size()][2];
+		for (int i = 0; i < Y.size(); i++)
+			ACsToWrite[0][i] = Y.get(i);
 
-			for (int i = 0; i < Cr.size(); i++)
-				ACsToWrite[2][i] = Cr.get(i);
+		for (int i = 0; i < Cb.size(); i++) {
+			ACsToWrite[1][i] = Cb.get(i);
+		}
+		for (int i = 0; i < Cr.size(); i++) {
+			ACsToWrite[2][i] = Cr.get(i);
+		}
 
-		
-			return ACsToWrite;
+		return ACsToWrite;
 	}
 
 	/**
