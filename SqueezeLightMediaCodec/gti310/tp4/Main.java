@@ -35,8 +35,8 @@ public class Main {
 	 * The YUV color space.
 	 */
 	public static final int Y = 0;
-	public static final int U = 1;
-	public static final int V = 2;
+	public static final int Cb = 1;
+	public static final int Cr = 2;
 	
 	public static final Scanner sc= new Scanner(System.in);
 	public static final PPMReaderWriter ppm = new PPMReaderWriter();

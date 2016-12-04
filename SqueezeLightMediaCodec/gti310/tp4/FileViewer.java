@@ -35,7 +35,7 @@ public class FileViewer{
 		_dialog.setAcceptAllFileFilterUsed(false);
 		
 		/* set the dialog's caption */
-		_dialog.setDialogTitle("Please select a valid PPM image file");
+		_dialog.setDialogTitle("Please select a valid image file");
 		
 		/* make sure only files can be selected, not folders */
 		_dialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
