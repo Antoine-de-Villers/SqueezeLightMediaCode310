@@ -58,22 +58,24 @@ public class Main {
 					+ "Squeeze Light,\nou D pour decoder l'image Squeeze Light");
 			String reponse = sc.nextLine();
 			if (reponse.toLowerCase().equals("c")) {
-				System.out.println("Veuillez nommer le fichier ppm a encoder en format SZL");
-				reponse = sc.nextLine();
+				System.out.println("Comment voulez-vous nommer le fichier de sortie?(sans mettre le .szl)");
+				reponse=sc.nextLine();
 				encodeSZL(reponse);
 				valid = true;
 			} else if (reponse.toLowerCase().equals("d")) {
-				sc.close();
-				decodeSZL();
+				System.out.println("Comment voulez-vous nommer le fichier de sortie (sans mettre le .ppm)?");
+				reponse=sc.nextLine();
+				decodeSZL(reponse);
 				valid = true;
 			} else {
 				System.out.println("Vous n'avez pas rentrer une reponse valide, veuillez reessayez.");
 			}
 		}
+		System.out.println("Le programme s'est effectué avec succès");
 
 	}
 
-	public static void encodeSZL(String filename) {
+	public static void encodeSZL(String file) {
 		FileViewer f = new FileViewer(true);
 		/*
 		 * int[][][] image= ppm.readPPMFile(filename);
@@ -85,7 +87,6 @@ public class Main {
 
 		System.out.println("Avec quelle facteur de qualite souhaitez-vous charger l'image (0-100)");
 		int reponse = Integer.parseInt(sc.nextLine());
-		System.out.println(f.getFile().getName());
 		List<int[][][]> blocs = new LinkedList<int[][][]>();
 		blocs = Quantification.Do(
 				DCTManager.DCT(BlocManager
@@ -113,12 +114,12 @@ public class Main {
 
 		for (int i = 0; i < AC[2].length; i++)
 			Entropy.writeAC(AC[2][i][0], AC[2][i][1]);
-		System.out.println("ok");
-		SZLReaderWriter.writeSZLFile("output.szl", PPMReaderWriter.readPPMFile(f.getFile().toString())[0].length,
+		SZLReaderWriter.writeSZLFile(file+".szl", PPMReaderWriter.readPPMFile(f.getFile().toString())[0].length,
 				PPMReaderWriter.readPPMFile(f.getFile().toString())[0][0].length, reponse);
+		System.out.println("Fichier "+file+".szl généré");
 	}
 
-	public static void decodeSZL() {
+	public static void decodeSZL(String file) {
 		FileViewer f = new FileViewer(false);
 
 		int[] header = SZLReaderWriter.readSZLFile(f.getFile().toString());
@@ -217,10 +218,10 @@ public class Main {
 			}
 		}
 
-		PPMReaderWriter.writePPMFile("output2.ppm",
+		PPMReaderWriter.writePPMFile(file+".ppm",
 				Conversion.convertYUVToRGB(BlocManager.merge(
 						DCTManager.iDCT(Quantification.UnDo(ZigzagChange.CreateBlocs(DCs, Y, Cb, Cr, width, height), fq)),
 						width, height)));
-
+		System.out.println("Fichier "+file+".ppm généré");
 	}
 }

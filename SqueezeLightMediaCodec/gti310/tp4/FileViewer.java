@@ -19,7 +19,6 @@ public class FileViewer{
 		this.a = a;
 		setupFileChooser();
 		int returnVal = _dialog.showOpenDialog(null);
-		System.out.println("tabarnak");
 		if(returnVal == JFileChooser.APPROVE_OPTION){
 			file = _dialog.getSelectedFile();
 		}	
