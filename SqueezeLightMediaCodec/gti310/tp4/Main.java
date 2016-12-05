@@ -82,13 +82,14 @@ public class Main {
 		 * System.out.println(newfilename);
 		 * szl.writeSZLFile(newfilename,image[0].length,image[0][0].length,90);
 		 */
-		
+
 		System.out.println("Avec quelle facteur de qualite souhaitez-vous charger l'image (0-100)");
 		int reponse = Integer.parseInt(sc.nextLine());
 		System.out.println(f.getFile().getName());
 		List<int[][][]> blocs = new LinkedList<int[][][]>();
 		blocs = Quantification.Do(
-				DCTManager.DCT(BlocManager.split(Conversion.convertRGBToYCbCr(PPMReaderWriter.readPPMFile(f.getFile().toString())))),
+				DCTManager.DCT(BlocManager
+						.split(Conversion.convertRGBToYCbCr(PPMReaderWriter.readPPMFile(f.getFile().toString())))),
 				reponse);
 		int[][][] AC = ZigzagChange.GetAC(blocs);
 		int[][] DC = ZigzagChange.GetDC(blocs);
@@ -119,6 +120,107 @@ public class Main {
 
 	public static void decodeSZL() {
 		FileViewer f = new FileViewer(false);
+
+		int[] header = SZLReaderWriter.readSZLFile(f.getFile().toString());
+		int height = header[0];
+		int width = header[1];
+		int space = header[2];
+		int fq = header[3];
+		if (space != 3)
+			System.exit(0);
+
+		List<int[]> Y = new LinkedList<int[]>();
+		List<int[]> Cb = new LinkedList<int[]>();
+		List<int[]> Cr = new LinkedList<int[]>();
+		int[][] DCs = new int[space][width * height / 64];
+
+		// DC
+		for (int i = 0; i < (width * height / 64); i++)
+			DCs[0][i] = Entropy.readDC();
+
+		for (int i = 0; i < (width * height / 64); i++)
+			DCs[1][i] = Entropy.readDC();
+
+		for (int i = 0; i < (width * height / 64); i++)
+			DCs[2][i] = Entropy.readDC();
+
+		// AC
+		int i = 0;
+		int ibloc = 0;
+		int eob = 0;
+		while (true) {
+			if (i >= (width * height * 63 / 64))
+				break;
+			int[] couple = Entropy.readAC();
+			if (couple[0] == 0 && couple[1] == 0) {
+				i += 63 - ibloc;
+				ibloc = 0;
+				eob++;
+				{
+					int[] tab = { 0, 0 };
+					Y.add(tab);
+				}
+			} else {
+				i += couple[0];
+				ibloc += couple[0];
+				i += 1;
+				ibloc += 1;
+				Y.add(couple);
+			}
+		}
+
+		i = 0;
+		ibloc = 0;
+		eob = 0;
+		while (true) {
+			if (i >= (width * height * 63 / 64))
+				break;
+			int[] couple = Entropy.readAC();
+			if (couple[0] == 0 && couple[1] == 0) {
+				i += 63 - ibloc;
+				ibloc = 0;
+				eob++;
+				{
+					int[] tab = { 0, 0 };
+					Cb.add(tab);
+				}
+			} else {
+				i += couple[0];
+				ibloc += couple[0];
+				i += 1;
+				ibloc += 1;
+				Cb.add(couple);
+			}
+		}
+
+		i = 0;
+		ibloc = 0;
+		eob = 0;
+		while (true) {
+			if (i >= (width * height * 63 / 64))
+				break;
+			int[] couple = Entropy.readAC();
+			if (couple[0] == 0 && couple[1] == 0) {
+				i += 63 - ibloc;
+				ibloc = 0;
+				eob++;
+				{
+					int[] tab = { 0, 0 };
+					Cr.add(tab);
+				}
+			} else {
+				i += couple[0];
+				ibloc += couple[0];
+				i += 1;
+				ibloc += 1;
+				Cr.add(couple);
+			}
+		}
+
+		PPMReaderWriter.writePPMFile("output2.ppm",
+				Conversion.convertYUVToRGB(BlocManager.merge(
+						DCTManager.iDCT(Quantification.UnDo(ZigzagChange.CreateBlocs(DCs, Y, Cb, Cr, width, height), fq)),
+						width, height)));
 
 	}
 }
