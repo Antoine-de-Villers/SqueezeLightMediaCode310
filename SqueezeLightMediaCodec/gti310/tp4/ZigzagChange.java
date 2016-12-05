@@ -78,7 +78,17 @@ public class ZigzagChange {
 			}
 		}
 
-		int[][][] ACsToWrite = new int[Main.COLOR_SPACE_SIZE][Y.size()][2];
+		int biggestSize=0;
+		if(Y.size()>Cb.size()&&Y.size()>Cr.size()){
+			biggestSize=Y.size();
+		}
+		else if(Cb.size()>Y.size()&&Cb.size()>Cr.size()){
+			biggestSize=Cb.size();
+		}
+		else if(Cr.size()>Cb.size()&&Cr.size()>Y.size()){
+			biggestSize=Cr.size();
+		}
+		int[][][] ACsToWrite = new int[Main.COLOR_SPACE_SIZE][biggestSize][2];
 		for (int i = 0; i < Y.size(); i++)
 			ACsToWrite[0][i] = Y.get(i);
 
@@ -86,7 +96,7 @@ public class ZigzagChange {
 			ACsToWrite[1][i] = Cb.get(i);
 		}
 		for (int i = 0; i < Cr.size(); i++) {
-			ACsToWrite[2][i] = Cr.get(i);
+			ACsToWrite[2][i] = 	Cr.get(i);
 		}
 
 		return ACsToWrite;

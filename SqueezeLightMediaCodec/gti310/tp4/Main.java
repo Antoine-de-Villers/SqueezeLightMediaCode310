@@ -77,15 +77,11 @@ public class Main {
 
 	public static void encodeSZL(String file) {
 		FileViewer f = new FileViewer(true);
-		/*
-		 * int[][][] image= ppm.readPPMFile(filename);
-		 * System.out.println(filename); String[] parts = filename.split(".");
-		 * String end = ".szl"; String newfilename=parts[0];
-		 * System.out.println(newfilename);
-		 * szl.writeSZLFile(newfilename,image[0].length,image[0][0].length,90);
-		 */
-
-		System.out.println("Avec quelle facteur de qualite souhaitez-vous charger l'image (0-100)");
+		if(f.getFile()==null){
+			System.out.println("Vous n'avez pas sélectionné de fichier");
+			System.exit(0);
+		}
+		System.out.println("Avec quelle facteur de qualite souhaitez-vous charger l'image (1-100)");
 		int reponse = Integer.parseInt(sc.nextLine());
 		List<int[][][]> blocs = new LinkedList<int[][][]>();
 		blocs = Quantification.Do(
@@ -121,6 +117,10 @@ public class Main {
 
 	public static void decodeSZL(String file) {
 		FileViewer f = new FileViewer(false);
+		if(f.getFile()==null){
+			System.out.println("Vous n'avez pas sélectionné de fichier");
+			System.exit(0);
+		}
 
 		int[] header = SZLReaderWriter.readSZLFile(f.getFile().toString());
 		int height = header[0];
