@@ -78,7 +78,7 @@ public class Main {
 	public static void encodeSZL(String file) {
 		FileViewer f = new FileViewer(true);
 		if(f.getFile()==null){
-			System.out.println("Vous n'avez pas sélectionné de fichier");
+			System.out.println("Vous n'avez pas selectionne de fichier");
 			System.exit(0);
 		}
 		System.out.println("Avec quelle facteur de qualite souhaitez-vous charger l'image (1-100)");
@@ -112,13 +112,13 @@ public class Main {
 			Entropy.writeAC(AC[2][i][0], AC[2][i][1]);
 		SZLReaderWriter.writeSZLFile(file+".szl", PPMReaderWriter.readPPMFile(f.getFile().toString())[0].length,
 				PPMReaderWriter.readPPMFile(f.getFile().toString())[0][0].length, reponse);
-		System.out.println("Fichier "+file+".szl généré");
+		System.out.println("Fichier "+file+".szl genere");
 	}
 
 	public static void decodeSZL(String file) {
 		FileViewer f = new FileViewer(false);
 		if(f.getFile()==null){
-			System.out.println("Vous n'avez pas sélectionné de fichier");
+			System.out.println("Vous n'avez pas selectionne de fichier");
 			System.exit(0);
 		}
 
@@ -222,6 +222,6 @@ public class Main {
 				Conversion.convertYUVToRGB(BlocManager.merge(
 						DCTManager.iDCT(Quantification.UnDo(ZigzagChange.CreateBlocs(DCs, Y, Cb, Cr, width, height), fq)),
 						width, height)));
-		System.out.println("Fichier "+file+".ppm généré");
+		System.out.println("Fichier "+file+".ppm genere");
 	}
 }
